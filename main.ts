@@ -1,14 +1,14 @@
 input.onButtonPressed(Button.A, function () {
-    radio.sendString("smile")
+    radio.sendNumber(randint(0, 10))
 })
 radio.onReceivedString(function (receivedString) {
     if (receivedString == "smile") {
         basic.showIcon(IconNames.Heart)
     } else {
-        basic.showIcon(IconNames.Sad)
+        basic.showString(receivedString)
     }
 })
 input.onButtonPressed(Button.B, function () {
-    radio.sendString("no")
+    radio.sendString("smile")
 })
 radio.setGroup(2)
