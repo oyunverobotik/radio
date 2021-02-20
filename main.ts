@@ -1,14 +1,55 @@
 input.onButtonPressed(Button.A, function () {
-    radio.sendNumber(randint(0, 10))
+    radio.sendString("left")
+})
+input.onButtonPressed(Button.AB, function () {
+    radio.sendString("straight")
 })
 radio.onReceivedString(function (receivedString) {
-    if (receivedString == "smile") {
-        basic.showIcon(IconNames.Heart)
+    if (receivedString == "left") {
+        SuperBit.MotorRunDual(
+        SuperBit.enMotors.M1,
+        -125,
+        SuperBit.enMotors.M2,
+        10
+        )
+        basic.showLeds(`
+            . . # . .
+            . # . . .
+            # # # # #
+            . # . . .
+            . . # . .
+            `)
+    } else if (receivedString == "right") {
+        SuperBit.MotorRunDual(
+        SuperBit.enMotors.M1,
+        10,
+        SuperBit.enMotors.M2,
+        125
+        )
+        basic.showLeds(`
+            . . # . .
+            . . . # .
+            # # # # #
+            . . . # .
+            . . # . .
+            `)
     } else {
-        basic.showString(receivedString)
+        SuperBit.MotorRunDual(
+        SuperBit.enMotors.M1,
+        -200,
+        SuperBit.enMotors.M2,
+        200
+        )
+        basic.showLeds(`
+            . . # . .
+            . # # # .
+            # . # . #
+            . . # . .
+            . . # . .
+            `)
     }
 })
 input.onButtonPressed(Button.B, function () {
-    radio.sendString("smile")
+    radio.sendString("right")
 })
 radio.setGroup(2)
