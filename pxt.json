@@ -1,5 +1,5 @@
 {
-    "name": "radio",
+    "name": "radio-remote",
     "description": "",
     "dependencies": {
         "core": "*",
