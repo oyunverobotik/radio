@@ -52,4 +52,22 @@ radio.onReceivedString(function (receivedString) {
 input.onButtonPressed(Button.B, function () {
     radio.sendString("right")
 })
+WSJoyStick.JoyStickInit()
 radio.setGroup(2)
+basic.forever(function () {
+    if (WSJoyStick.Listen_Key(KEY.F)) {
+        SuperBit.MotorRunDual(
+        SuperBit.enMotors.M1,
+        0,
+        SuperBit.enMotors.M2,
+        0
+        )
+        basic.showLeds(`
+            . . . . .
+            . . # . .
+            . # # # .
+            . . # . .
+            . . . . .
+            `)
+    }
+})
