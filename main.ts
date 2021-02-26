@@ -1,11 +1,11 @@
 function goAhead (m1: number, m2: number, image: Image) {
     SuperBit.MotorRunDual(
     SuperBit.enMotors.M1,
-    -200,
+    m1,
     SuperBit.enMotors.M2,
-    200
+    m2
     )
-    nn.showImage(0)
+    image.showImage(0)
 }
 input.onButtonPressed(Button.A, function () {
     radio.sendString("left")
@@ -15,66 +15,42 @@ input.onButtonPressed(Button.AB, function () {
 })
 radio.onReceivedString(function (receivedString) {
     if (receivedString == "left") {
-        SuperBit.MotorRunDual(
-        SuperBit.enMotors.M1,
-        -125,
-        SuperBit.enMotors.M2,
-        10
-        )
-        basic.showLeds(`
-            . . # . .
-            . # . . .
-            # # # # #
-            . # . . .
-            . . # . .
-            `)
+        goAhead(-125, 10, ww)
     } else if (receivedString == "right") {
-        SuperBit.MotorRunDual(
-        SuperBit.enMotors.M1,
-        10,
-        SuperBit.enMotors.M2,
-        125
-        )
-        basic.showLeds(`
-            . . # . .
-            . . . # .
-            # # # # #
-            . . . # .
-            . . # . .
-            `)
-    } else {
-        SuperBit.MotorRunDual(
-        SuperBit.enMotors.M1,
-        -200,
-        SuperBit.enMotors.M2,
-        200
-        )
-        basic.showLeds(`
-            . . # . .
-            . # # # .
-            # . # . #
-            . . # . .
-            . . # . .
-            `)
+        goAhead(10, 125, ee)
+    } else if (receivedString == "straight") {
+        goAhead(-200, 200, nn)
+    } else if (receivedString == "down") {
+        goAhead(200, -200, ss)
+    } else if (receivedString == "stop") {
+        goAhead(0, 0, images.arrowImage(ArrowNames.SouthWest))
     }
 })
 input.onButtonPressed(Button.B, function () {
     radio.sendString("right")
 })
+let ee: Image = null
+let ww: Image = null
+let ss: Image = null
 let nn: Image = null
 WSJoyStick.JoyStickInit()
 radio.setGroup(2)
 nn = images.arrowImage(ArrowNames.North)
-let ss = images.arrowImage(ArrowNames.South)
-let ww = images.arrowImage(ArrowNames.West)
-let ee = images.arrowImage(ArrowNames.East)
+ss = images.arrowImage(ArrowNames.South)
+ww = images.arrowImage(ArrowNames.West)
+ee = images.arrowImage(ArrowNames.East)
 basic.forever(function () {
-    if (WSJoyStick.Listen_Dir(DIR.U) || false) {
-        goAhead(-125, 20, nn)
-    } else {
-    	
+    if (WSJoyStick.Listen_Dir(DIR.U)) {
+        radio.sendString("straight")
+    } else if (WSJoyStick.Listen_Dir(DIR.L)) {
+        radio.sendString("left")
+    } else if (WSJoyStick.Listen_Dir(DIR.R)) {
+        radio.sendString("right")
+    } else if (WSJoyStick.Listen_Dir(DIR.D)) {
+        radio.sendString("down")
     }
     if (WSJoyStick.Listen_Key(KEY.F)) {
+        radio.sendString("stop")
         SuperBit.MotorRunDual(
         SuperBit.enMotors.M1,
         0,
