@@ -23,7 +23,13 @@ radio.onReceivedString(function (receivedString) {
     } else if (receivedString == "down") {
         goAhead(200, -200, ss)
     } else if (receivedString == "stop") {
-        goAhead(0, 0, images.arrowImage(ArrowNames.SouthWest))
+        goAhead(0, 0, images.createImage(`
+            . . . . .
+            . . # . .
+            . # # # .
+            . . # . .
+            . . . . .
+            `))
     }
 })
 input.onButtonPressed(Button.B, function () {
