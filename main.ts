@@ -19,12 +19,21 @@ input.onButtonPressed(Button.AB, function () {
 })
 radio.onReceivedString(function (receivedString) {
     if (receivedString == "left") {
-        goAhead(-100, 10, ww)
+        goAhead(-150, 20, ww)
     } else if (receivedString == "right") {
-        goAhead(10, 100, ee)
+        goAhead(20, 150, ee)
     } else if (receivedString == "straight") {
-        goAhead(-200, 200, nn)
+        goAhead(-250, 250, nn)
     } else if (receivedString == "down") {
+        goAhead(250, -250, ss)
+    }
+    if (receivedString == "straightleft") {
+        goAhead(-100, 10, ww)
+    } else if (receivedString == "straightright") {
+        goAhead(10, 100, ee)
+    } else if (receivedString == "downleft") {
+        goAhead(-200, 200, nn)
+    } else if (receivedString == "downright") {
         goAhead(200, -200, ss)
     } else if (receivedString == "stop") {
         goAhead(0, 0, images.createImage(`
@@ -71,6 +80,15 @@ basic.forever(function () {
         dir = "right"
     } else if (WSJoyStick.Listen_Dir(DIR.D)) {
         dir = "down"
+        if (WSJoyStick.Listen_Dir(DIR.U_L)) {
+            dir = "straightleft"
+        } else if (WSJoyStick.Listen_Dir(DIR.U_R)) {
+            dir = "straightright"
+        } else if (WSJoyStick.Listen_Dir(DIR.D_L)) {
+            dir = "downleft"
+        } else if (WSJoyStick.Listen_Dir(DIR.D_R)) {
+            dir = "downright"
+        }
     }
     if (WSJoyStick.Listen_Key(KEY.F)) {
         dir = "stop"
