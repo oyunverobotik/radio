@@ -12,6 +12,7 @@ input.onButtonPressed(Button.A, function () {
 })
 WSJoyStick.onKey(KEY.E, function () {
     v = v + 0.2
+    music.playMelody("C E F G A B C5 C5 ", 960)
 })
 input.onButtonPressed(Button.AB, function () {
     radio.sendString("straight")
@@ -40,6 +41,12 @@ input.onButtonPressed(Button.B, function () {
 })
 WSJoyStick.onKey(KEY.C, function () {
     v = v - 0.2
+    music.playMelody("C5 B A G F E D D ", 960)
+})
+radio.onReceivedValue(function (name, value) {
+    if (name == "v") {
+        v = value
+    }
 })
 let ee: Image = null
 let ww: Image = null
@@ -70,6 +77,7 @@ basic.forever(function () {
     }
     if (old_dir != dir) {
         radio.sendString(dir)
+        radio.sendValue("v", v)
     }
     old_dir = dir
 })
