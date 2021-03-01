@@ -12,25 +12,25 @@ input.onButtonPressed(Button.A, function () {
 })
 WSJoyStick.onKey(KEY.E, function () {
     v = v + 0.2
-    music.playMelody("C E F G A B C5 C5 ", 960)
+    music.playMelody("C D E F G A B C5 ", 1200)
 })
 input.onButtonPressed(Button.AB, function () {
     radio.sendString("straight")
 })
 radio.onReceivedString(function (receivedString) {
     if (receivedString == "left") {
-        goAhead(-150, 20, ww)
+        goAhead(-200, 75, ww)
     } else if (receivedString == "right") {
-        goAhead(20, 150, ee)
+        goAhead(-75, 200, ee)
     } else if (receivedString == "straight") {
-        goAhead(-250, 250, nn)
+        goAhead(-255, 255, nn)
     } else if (receivedString == "down") {
-        goAhead(250, -250, ss)
+        goAhead(255, -255, ss)
     }
     if (receivedString == "straightleft") {
-        goAhead(-100, 10, ww)
+        goAhead(-100, 10, images.arrowImage(ArrowNames.NorthWest))
     } else if (receivedString == "straightright") {
-        goAhead(10, 100, ee)
+        goAhead(10, 100, images.arrowImage(ArrowNames.NorthEast))
     } else if (receivedString == "downleft") {
         goAhead(-200, 200, nn)
     } else if (receivedString == "downright") {
@@ -50,7 +50,7 @@ input.onButtonPressed(Button.B, function () {
 })
 WSJoyStick.onKey(KEY.C, function () {
     v = v - 0.2
-    music.playMelody("C5 B A G F E D D ", 960)
+    music.playMelody("C5 B A G F E D C ", 1200)
 })
 radio.onReceivedValue(function (name, value) {
     if (name == "v") {
@@ -80,15 +80,15 @@ basic.forever(function () {
         dir = "right"
     } else if (WSJoyStick.Listen_Dir(DIR.D)) {
         dir = "down"
-        if (WSJoyStick.Listen_Dir(DIR.U_L)) {
-            dir = "straightleft"
-        } else if (WSJoyStick.Listen_Dir(DIR.U_R)) {
-            dir = "straightright"
-        } else if (WSJoyStick.Listen_Dir(DIR.D_L)) {
-            dir = "downleft"
-        } else if (WSJoyStick.Listen_Dir(DIR.D_R)) {
-            dir = "downright"
-        }
+    }
+    if (WSJoyStick.Listen_Dir(DIR.U_L)) {
+        dir = "straightleft"
+    } else if (WSJoyStick.Listen_Dir(DIR.U_R)) {
+        dir = "straightright"
+    } else if (WSJoyStick.Listen_Dir(DIR.D_L)) {
+        dir = "downleft"
+    } else if (WSJoyStick.Listen_Dir(DIR.D_R)) {
+        dir = "downright"
     }
     if (WSJoyStick.Listen_Key(KEY.F)) {
         dir = "stop"
